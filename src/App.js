@@ -3,8 +3,8 @@ import { FormControl, Select, MenuItem } from '@material-ui/core';
 import './App.css';
 
 function App() {
-  // state how to write a variable in react<<
   const [countries, setCountries] = useState([]);
+  const [country, setCountry] = useState('worldwide');
   // useEffect = runs piece of code based on given condition
   // the code will run once
   // when component loads and not again after
@@ -26,22 +26,25 @@ function App() {
     };
     getCountriesData();
   }, []);
+
+  const onCountryChange = (e) => {
+    const countryCode = e.target.value;
+
+    setCountry(countryCode);
+  };
+
   return (
     <div className='app'>
       <div className='app__header'>
         <h1> COVID-19 TRACKER</h1>
         <FormControl className='app_dropdown'>
-          <Select variant='outlined' value='abc'>
+          <Select variant='outlined' onChange={onCountryChange} value={country}>
+            <MenuItem value='worldwide'>Worldwide</MenuItem>
             {/* Loop through all the countries and show the dropdown of those countries */}
 
             {countries.map((country) => (
               <MenuItem value={country.value}> {country.name}</MenuItem>
             ))}
-
-            {/* <MenuItem value='worldwide'> Worldwide</MenuItem>
-            <MenuItem value='worldwide'> Option two</MenuItem>
-            <MenuItem value='worldwide'> Option 3</MenuItem>
-            <MenuItem value='worldwide'> Option 4</MenuItem> */}
           </Select>
         </FormControl>
       </div>
