@@ -1,6 +1,6 @@
 import React from 'react';
 
-function index() {
+function Map() {
   return (
     <div className='map'>
       <h1> I am a map</h1>
@@ -8,4 +8,4 @@ function index() {
   );
 }
 
-export default index;
+export default Map;

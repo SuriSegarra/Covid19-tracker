@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Typography } from '@material-ui/core';
 
-function index({ title, cases, total }) {
+function InfoBox({ title, cases, total }) {
   return (
     <Card className='infoBox'>
       <CardContent>
@@ -20,4 +20,4 @@ function index({ title, cases, total }) {
   );
 }
 
-export default index;
+export default InfoBox;
