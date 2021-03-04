@@ -47,15 +47,13 @@ const options = {
   },
 };
 
-const buildChartData = (data, casesType = 'cases') => {
-  const chartData = [];
+const buildChartData = (data, casesType) => {
+  let chartData = [];
   let lastDataPoint;
-
   for (let date in data.cases) {
     if (lastDataPoint) {
-      const newDataPoint = {
+      let newDataPoint = {
         x: date,
-        // data de los casos nuevos - los casos viejos = la diferencia
         y: data[casesType][date] - lastDataPoint,
       };
       chartData.push(newDataPoint);
@@ -65,39 +63,40 @@ const buildChartData = (data, casesType = 'cases') => {
   return chartData;
 };
 
-function LineGraph({ casesType = 'cases' }) {
+function LineGraph({ casesType }) {
   const [data, setData] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
       await fetch('https://disease.sh/v3/covid-19/historical/all?lastdays=120')
-        .then((response) => response.json())
+        .then((response) => {
+          return response.json();
+        })
         .then((data) => {
-          let chartData = buildChartData(data, 'cases');
-          console.log(chartData);
-          // const chartData = buildChartData(data);
+          let chartData = buildChartData(data, casesType);
           setData(chartData);
+          console.log(chartData);
+          // buildChart(chartData);
         });
     };
+
     fetchData();
   }, [casesType]);
 
   return (
     <div>
-      <h1>I am a graph</h1>
-      {/* the question mark checks if the data exists, if it doesnt, returns whole things as underfined */}
       {data?.length > 0 && (
         <Line
-          options={options}
           data={{
             datasets: [
               {
-                backgroundColor: 'rgba(204, 16, 52, 0.5',
+                backgroundColor: 'rgba(204, 16, 52, 0.5)',
                 borderColor: '#CC1034',
-                data: data, //key is data and the value is the state data
+                data: data,
               },
             ],
           }}
+          options={options}
         />
       )}
     </div>
