@@ -15,9 +15,6 @@ import './App.css';
 import 'leaflet/dist/leaflet.css';
 
 function App() {
-  // useEffect = runs piece of code based on given condition
-  // the code will run once
-  // when component loads and not again after
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState('worldwide');
   const [countryInfo, setCountryInfo] = useState({});
@@ -36,15 +33,13 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // async -> send req, wait for it, do something with data
-
     const getCountriesData = async () => {
       await fetch('https://disease.sh/v3/covid-19/countries')
         .then((response) => response.json())
         .then((data) => {
           const countries = data.map((country) => ({
-            name: country.country, // United States, United Kingdom
-            value: country.countryInfo.iso2, //UK, USAA, FR
+            name: country.country,
+            value: country.countryInfo.iso2,
           }));
           const sortedData = sortData(data);
           setTableData(sortedData);
@@ -68,7 +63,6 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setCountry(countryCode);
-        // all of the dta from the country response
         setCountryInfo(data);
         setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
         setMapZoom(4);
@@ -79,9 +73,7 @@ function App() {
     <div className='app'>
       <div className='app__left'>
         <div className='app__header'>
-          {/* header */}
           <h1> COVID-19 TRACKER</h1>
-          {/* dropdown */}
           <FormControl className='app_dropdown'>
             <Select
               variant='outlined'
@@ -89,7 +81,6 @@ function App() {
               value={country}
             >
               <MenuItem value='worldwide'>Worldwide</MenuItem>
-              {/* Loop through all the countries and show the dropdown of those countries */}
 
               {countries.map((country) => (
                 <MenuItem value={country.value}> {country.name}</MenuItem>
@@ -97,7 +88,6 @@ function App() {
             </Select>
           </FormControl>
         </div>
-        {/* Info boxes */}
         <div className='app__stats'>
           <InfoBox
             isRed
