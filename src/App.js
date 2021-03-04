@@ -11,12 +11,20 @@ import Map from './Map';
 import './App.css';
 
 function App() {
-  const [countries, setCountries] = useState([]);
-  const [country, setCountry] = useState('worldwide');
-  const [countryInfo, setCountryInfo] = useState({});
   // useEffect = runs piece of code based on given condition
   // the code will run once
   // when component loads and not again after
+  const [countries, setCountries] = useState([]);
+  const [country, setCountry] = useState('worldwide');
+  const [countryInfo, setCountryInfo] = useState({});
+
+  useEffect(() => {
+    fetch('https://disease.sh/v3/covid-19/all')
+      .then((response) => response.json())
+      .then((data) => {
+        setCountryInfo(data);
+      });
+  }, []);
 
   useEffect(() => {
     // async -> send req, wait for it, do something with data
