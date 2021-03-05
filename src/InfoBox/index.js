@@ -26,5 +26,4 @@ function InfoBox({ title, cases, total, active, isRed, ...props }) {
     </Card>
   );
 }
-
 export default InfoBox;
