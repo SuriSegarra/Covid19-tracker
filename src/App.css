@@ -59,3 +59,11 @@ body {
     flex-direction: column;
   }
 }
+
+.worldwide__cases {
+  margin-top: 30px;
+}
+
+.chartjs-render-monitor {
+  margin-top: 15px;
+}
