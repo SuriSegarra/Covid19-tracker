@@ -13,6 +13,7 @@ import { sortData, prettyPrintStat } from './util';
 import LineGraph from './LineGraph';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
+import numeral from 'numeral';
 
 function App() {
   const [country, setInputCountry] = useState('worldwide');
